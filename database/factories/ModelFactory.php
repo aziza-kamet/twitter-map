@@ -16,8 +16,17 @@ use Faker\Generator as Faker;
 $factory->define(App\User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
+        'login' => $faker->unique()->userName,
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
         'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(App\Tweet::class, function (Faker $faker) {
+    return [
+        'content' => $faker->text(300),
+        'lat' => $faker->latitude,
+        'long' => $faker->longitude,
+        'created_at' => $faker->dateTimeBetween('-1 hour', 'now', 'Asia/Almaty')
     ];
 });
