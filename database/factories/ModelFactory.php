@@ -25,8 +25,8 @@ $factory->define(App\User::class, function (Faker $faker) {
 $factory->define(App\Tweet::class, function (Faker $faker) {
     return [
         'content' => $faker->text(300),
-        'lat' => $faker->latitude,
-        'long' => $faker->longitude,
+        'lat' => $faker->latitude(-80, 80),
+        'long' => $faker->longitude(-180, 180),
         'created_at' => $faker->dateTimeBetween('-1 hour', 'now', 'Asia/Almaty')
     ];
 });
