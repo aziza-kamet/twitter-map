@@ -17,7 +17,7 @@ composer update --no-scripts
 cp .env.example .env
 ```
 
-Внутри `.env` нужно указать конфигурации базы данных. Создайте отдельную базу для данного проекта и укажите его название вместо `НАЗВАНИЕ_БД`.
+Внутри `.env` нужно указать конфигурации базы данных и Twitter API. Создайте отдельную базу для данного проекта и укажите его название вместо `НАЗВАНИЕ_БД`.
 ```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -25,6 +25,11 @@ DB_PORT=3306
 DB_DATABASE=НАЗВАНИЕ_БД
 DB_USERNAME=ИМЯ_ПОЛЬЗОВАТЕЛЯ
 DB_PASSWORD=ПАРОЛЬ
+
+TWITTER_CONSUMER_KEY=ВАШ_CONSUMER_KEY
+TWITTER_CONSUMER_SECRET=ВАШ_CONSUMER_SECRET
+TWITTER_ACCESS_TOKEN=ВАШ_ACCESS_TOKEN
+TWITTER_ACCESS_TOKEN_SECRET=ВАШ_ACCESS_TOKEN_SECRET
 ```
 
 После этого запустите следующие команды:
