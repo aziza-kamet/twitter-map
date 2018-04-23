@@ -13,3 +13,4 @@
 
 Route::get('/', 'TweetController@index');
 Route::get('/api/tweets', 'TweetController@list');
+Route::get('/api/refresh_tweets', 'TweetController@refreshAndList');

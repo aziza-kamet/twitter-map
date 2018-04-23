@@ -41069,6 +41069,7 @@ var TwitterMap = function (_Component) {
             isMarkerShown: true,
             tweets: []
         };
+        _this.refreshTweets = _this.refreshTweets.bind(_this);
         return _this;
     }
 
@@ -41084,12 +41085,32 @@ var TwitterMap = function (_Component) {
             });
         }
     }, {
+        key: 'refreshTweets',
+        value: function refreshTweets() {
+            var _this3 = this;
+
+            fetch('/api/refresh_tweets').then(function (response) {
+                return response.json();
+            }).then(function (tweets) {
+                _this3.setState({ tweets: tweets });
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Map, {
-                isMarkerShown: this.state.isMarkerShown,
-                tweets: this.state.tweets
-            });
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Map, {
+                    isMarkerShown: this.state.isMarkerShown,
+                    tweets: this.state.tweets
+                }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'button',
+                    { style: { fontSize: '18px', margin: '2rem' }, onClick: this.refreshTweets },
+                    'Refresh'
+                )
+            );
         }
     }]);
 
@@ -59540,13 +59561,13 @@ var _require = __webpack_require__(387),
 var Map = Object(__WEBPACK_IMPORTED_MODULE_1_recompose__["compose"])(Object(__WEBPACK_IMPORTED_MODULE_1_recompose__["withProps"])({
   googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBOsol7L5Jtc8EwMaUgF6Xv9SudYwUhpaQ&v=3.exp&libraries=geometry,drawing,places",
   loadingElement: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { style: { height: "100%" } }),
-  containerElement: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { style: { height: "800px" } }),
+  containerElement: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { style: { height: "700px" } }),
   mapElement: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { style: { height: "100%" } })
 }), __WEBPACK_IMPORTED_MODULE_2_react_google_maps__["withScriptjs"], __WEBPACK_IMPORTED_MODULE_2_react_google_maps__["withGoogleMap"])(function (props) {
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     __WEBPACK_IMPORTED_MODULE_2_react_google_maps__["GoogleMap"],
     {
-      defaultZoom: 4,
+      defaultZoom: 2,
       defaultCenter: { lat: -43.000, lng: 76.000 }
     },
     props.tweets.map(function (tweet) {
@@ -59556,7 +59577,7 @@ var Map = Object(__WEBPACK_IMPORTED_MODULE_1_recompose__["compose"])(Object(__WE
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           InfoBox,
           {
-            defaultPosition: new google.maps.LatLng(tweet.lat, tweet.long),
+            defaultPosition: new google.maps.LatLng(tweet.lat, tweet.lng),
             options: { closeBoxURL: "", enableEventPropagation: true }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -59565,13 +59586,13 @@ var Map = Object(__WEBPACK_IMPORTED_MODULE_1_recompose__["compose"])(Object(__WE
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               "h3",
               { style: { padding: '0.5rem 1rem 0 1rem', margin: '0' } },
-              tweet.user.name
+              tweet.username
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               "small",
               { style: { padding: '0rem 1rem' } },
               "@",
-              tweet.user.login
+              tweet.login
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               "p",
@@ -59580,7 +59601,7 @@ var Map = Object(__WEBPACK_IMPORTED_MODULE_1_recompose__["compose"])(Object(__WE
             )
           )
         ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_google_maps__["Marker"], { position: { lat: parseFloat(tweet.lat), lng: parseFloat(tweet.long) } })
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_google_maps__["Marker"], { position: { lat: parseFloat(tweet.lat), lng: parseFloat(tweet.lng) } })
       );
     })
   );

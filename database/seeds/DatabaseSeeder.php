@@ -23,11 +23,5 @@ class DatabaseSeeder extends Seeder
              DB::table($table)->truncate();
              DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         }
-
-        $users = factory(User::class, 10)->create();
-
-        foreach ($users as $user) {
-            factory(Tweet::class, 5)->create(['user_id' => $user->id]);
-        }
     }
 }

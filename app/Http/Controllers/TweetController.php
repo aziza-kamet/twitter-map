@@ -16,6 +16,7 @@ class TweetController extends BaseController
 
     public function index()
     {
+        Tweet::addRecent();
         return view('tweets');
     }
 
@@ -24,9 +25,15 @@ class TweetController extends BaseController
         $tweets = Tweet::where(
             'created_at',
             '>',
-            Carbon::now()->subMinutes(30)->toDateTimeString()
-        )->with('user')->get();
+            Carbon::now()->subDays(7)->toDateTimeString()
+        )->get();
 
         return response()->json($tweets);
+    }
+
+    public function refreshAndList()
+    {
+        Tweet::addRecent();
+        return $this->list();
     }
 }
